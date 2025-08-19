@@ -42,11 +42,14 @@ public class UserServicesImple implements UserServices{
     userRepo.delete(users);
     return usermapper.consultDto(users);
   }
+
+  @Override
+  public UserDto updateUser(Integer id, UserDto userDto) {
+    User user = userRepo.findById(id).get();
+    usermapper.updateUser(user, userDto);
+    return usermapper.consultDto(userRepo.save(user));
+  }
 }
-
-
-
-
 
 
 

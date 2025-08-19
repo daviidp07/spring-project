@@ -18,14 +18,9 @@ import com.sena3.clase3.services.UserServices;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
 
 @RestController
 public class UserController {
-
 
   @Autowired
   private UsuarioRepository userRepo;
@@ -83,8 +78,7 @@ public class UserController {
         return new ResponseEntity<>(userServ.saveUser(userDto), HttpStatus.CREATED);
     }
 
-    // Lista de usuarios
-
+    // LISTA DE USUARIOS
     @GetMapping("/userListDto")
     public ResponseEntity<List<UserDto>> getUsers() {
         return new ResponseEntity<>(userServ.getUsers(), HttpStatus.OK);
@@ -93,5 +87,10 @@ public class UserController {
     @DeleteMapping("/deleteUsers/{id}")
     public ResponseEntity<UserDto> deleteUser (@PathVariable Integer id) {
       return new ResponseEntity<>(userServ.deleteUser(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/userUpdate/{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto) {
+      return new ResponseEntity<>(userServ.updateUser(id, userDto), HttpStatus.OK);
     }
 }
