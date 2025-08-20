@@ -3,13 +3,18 @@ package com.sena3.clase3.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sena3.clase3.dto.ProductDto;
 import com.sena3.clase3.models.Product;
 import com.sena3.clase3.repositories.ProductoRepository;
+import com.sena3.clase3.services.ProductServices;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -61,4 +66,31 @@ public class ProductController {
       return "product updated";
   }
 
+    // Arquitectura por capas
+
+  @Autowired
+  public ProductServices productServ;
+
+  @GetMapping("/FindProduct/{id}")
+  public ResponseEntity<ProductDto> getProduct(@PathVariable Integer id) {
+      return new ResponseEntity<>(productServ.getProduct(id), HttpStatus.OK);
+  }
+  @PostMapping("/CreateProduct")
+  public ResponseEntity<ProductDto> saveProduct(@RequestBody ProductDto productDto) {
+    return new ResponseEntity<>(productServ.saveProduct(productDto),HttpStatus.OK);
+  }
+  @GetMapping("/ListProducts")
+  public ResponseEntity <List<ProductDto>> getProducts() {
+      return new ResponseEntity<>(productServ.getProducts(), HttpStatus.OK);
+  }
+  
+  @PutMapping("/UpdateProduct/{id}")
+  public ResponseEntity<ProductDto> updateProductDto(@PathVariable Integer id, @RequestBody ProductDto productDto) {
+  return new ResponseEntity<>(productServ.updateProduct(id, productDto), HttpStatus.OK);
+  }
+
+  @DeleteMapping("/deleteProductDto/{id}")
+    public ResponseEntity<ProductDto> deleteProductDto (@PathVariable Integer id) {
+      return new ResponseEntity<>(productServ.deleteProduct(id), HttpStatus.OK);
+    }
 }

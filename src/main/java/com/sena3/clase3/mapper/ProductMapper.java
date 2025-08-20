@@ -10,7 +10,7 @@ public interface ProductMapper {
 
     ProductDto consultDto(Product product);
 
-    List<ProductDto> ListDtoProduct(List<Product> product);
+    List<ProductDto> listDtoProduct(List<Product> product);
 
     void updateProduct(Product product, ProductDto productDto);
 }

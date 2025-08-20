@@ -23,5 +23,5 @@ public class Product {
     private Integer id_producto;
     private String categoria;
     private String nombre;
-    private Integer precio;
+    private String precio;
 }
